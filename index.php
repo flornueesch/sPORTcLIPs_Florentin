@@ -21,10 +21,21 @@
   <body id="page-top">
 
     <!-- Navigation -->
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">sPORTcLIPs</a>
-      </div>
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">sPORTcLIPs</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="registrieren.php">Registrieren</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
     <header class="bg-primary text-white">
@@ -40,7 +51,7 @@
           <div class="col-lg-8 mx-auto">
 
 
-            <form action="/bestaetigung.php">
+            <form method="post" action="bestaetigung.php">
             <div class="form-group">
               <label for="usr">Username:</label>
               <input type="text" class="form-control" id="usr">
