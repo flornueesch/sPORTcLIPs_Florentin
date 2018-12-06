@@ -11,8 +11,9 @@ $dbdir = 'Z:\Eigene Dateien\IWeb\sPORTcLIPs_Florentin';
 $db = new SQLite3("$dbdir/sq3.db");
 
 /* Tabelle mit Primärschlüssel erzeugen */
-$db->exec("CREATE TABLE TLehrpersonen (LehrId INTEGER PRIMARY KEY AUTOINCREMENT, LehrVorname String, LehrNachnamen String);");
-$db->exec("CREATE TABLE TSchueler (StudId INTEGER PRIMARY KEY AUTOINCREMENT, StudVorname String, StudNachname);");
+$db->exec("CREATE TABLE IF NOT EXISTS TLehrpersonen (LehrId INTEGER PRIMARY KEY AUTOINCREMENT, LehrVorname String, LehrNachnamen String);");
+$db->exec("CREATE TABLE IF NOT EXISTS TSchueler (StudId INTEGER PRIMARY KEY AUTOINCREMENT, StudVorname String, StudNachname);");
+$db->exec("CREATE TABLE IF NOT EXISTS TVideos (VidNummer INTEGER PRIMARY KEY AUTOINCREMENT, VidPfand String);");
 
 /* Drei Datensätze eintragen */
 $db->query("INSERT INTO TLehrpersonen VALUES (null , 'Jean-Pierre', 'Mouret')");
