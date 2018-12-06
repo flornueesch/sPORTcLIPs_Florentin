@@ -22,3 +22,5 @@ if(isset($_POST['usr']) && isset($_POST['pwd'])) {
 /* Verbindung zur Datenbankdatei wieder lösen */
 $db->close();
 ?>
+
+
