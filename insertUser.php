@@ -6,13 +6,13 @@ $db = new SQLite3("$dbdir/sq3.db");
 
 $code = '';
 $teacherCode = 'teacherCode';
+$first = true;
 
 if(isset($_POST['code'])){
     $code = $_POST['code'];
 }
 
-if(isset($_POST['usr']) && isset($_POST['pwd']) && isset($_POST['pwd_con'])&& isset($_POST['vorname'])&& isset($_POST['nachname'])) {
-
+    echo "Warte";
     /* Create Teacher */
     if(isset($_POST['code']) && $code == $teacherCode) {
 
@@ -27,43 +27,59 @@ if(isset($_POST['usr']) && isset($_POST['pwd']) && isset($_POST['pwd_con'])&& is
         /* Abfrageergebnis ausgeben */
         while ($dsatz = $res->fetchArray(SQLITE3_ASSOC)) {
             if($dsatz == $user || $pwd != $pwd_con){
-                echo "nö";
-                header('Location: http://localhost:63342/sPORTcLIPs_Florentin/index.php');
+                //header('Location: http://localhost:63342/sPORTcLIPs_Florentin/index.php');
             }else{
-                echo "Gemacht";
-                $db->query("insert into TLehrer values (null,".$vorname.",".$nachname.",".$user.",".$pwd.")");
+                $sqlstr = "INSERT INTO TLehrer (LehrVorname, LehrNachname, LehrUser, LehrPassword) VALUES ";
+                $db->query($sqlstr . "('".$vorname."','".$nachname."','".$usr."','".$pwd."')");
                 $db->close();
                 header('Location: http://localhost:63342/sPORTcLIPs_Florentin/index.php');
             }
+        }
+
+        if($first){
+            $sqlstr = "INSERT INTO TLehrer (LehrVorname, LehrNachname, LehrUser, LehrPassword) VALUES ";
+            $db->query($sqlstr . "('".$vorname."','".$nachname."','".$usr."','".$pwd."')");
+            $db->close();
+            header('Location: http://localhost:63342/sPORTcLIPs_Florentin/index.php');
         }
     }
 
     /* Create Schueler */
     if($code != $teacherCode) {
 
-        $user = $_POST['vorname'];
-        $pwd = $_POST['nachname'];
+
+        $vorname = $_POST['vorname'];
+        $nachname = $_POST['nachname'];
+        $usr = $_POST['usr'];
         $pwd = $_POST['pwd'];
-        $pwd = $_POST['pwd_con'];
+        $pwd_con = $_POST['pwd_con'];
 
         $res = $db->query("SELECT * FROM TSchueler");
 
         /* Abfrageergebnis ausgeben */
         while ($dsatz = $res->fetchArray(SQLITE3_ASSOC)) {
+            $first = false;
             if($dsatz == $user || $pwd != $pwd_con){
-                echo "nö";
-                header('Location: http://localhost:63342/sPORTcLIPs_Florentin/index.php');
+                //header('Location: http://localhost:63342/sPORTcLIPs_Florentin/index.php');
             }else{
-                echo "Gemacht";
-                $db->query("insert into TSchueler values (null,".$vorname.",".$nachname.",".$user.",".$pwd.")");
+                $sqlstr = "INSERT INTO TSchueler (SchuVorname, SchuNachname, SchuUser, SchuPassword) VALUES ";
+                $db->query($sqlstr . "('".$vorname."','".$nachname."','".$usr."','".$pwd."')");
                 $db->close();
                 header('Location: http://localhost:63342/sPORTcLIPs_Florentin/index.php');
             }
         }
 
+
+        if($first){
+            $sqlstr = "INSERT INTO TSchueler (SchuVorname, SchuNachname, SchuUser, SchuPassword) VALUES ";
+            $db->query($sqlstr . "('".$vorname."','".$nachname."','".$usr."','".$pwd."')");
+            $db->close();
+            header('Location: http://localhost:63342/sPORTcLIPs_Florentin/index.php');
+        }
+
     }
 
-}
+
 
 
 ?>

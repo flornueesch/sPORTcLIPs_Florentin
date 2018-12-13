@@ -74,8 +74,8 @@ $db->close();
 
 <header class="bg-primary text-white">
     <div class="container text-center">
-        <h1>Login</h1>
-        <p class="lead">Login to see all the great clips</p>
+        <h1>Register</h1>
+        <p class="lead">Register to see all the great clips</p>
     </div>
 </header>
 
@@ -85,26 +85,26 @@ $db->close();
             <div class="col-lg-8 mx-auto">
 
 
-                <form method="post" action="bestaetigung.php">
+                <form method="post" action="insertUser.php">
                     <div class="form-group">
                         <label for="vorname">Vorname:</label>
-                        <input type="text" class="form-control" id="vorname" required>
+                        <input type="text" class="form-control" id="vorname" name="vorname" required>
                     </div>
                     <div class="form-group">
                         <label for="nachname">Nachname:</label>
-                        <input type="text" class="form-control" id="nachname" required>
+                        <input type="text" class="form-control" id="nachname" name="nachname" required>
                     </div>
                     <div class="form-group">
                         <label for="usr">Username:</label>
-                        <input type="text" class="form-control" id="usr" required>
+                        <input type="text" class="form-control" id="usr" name="usr" required>
                     </div>
                     <div class="form-group">
                         <label for="pwd">Password:</label>
-                        <input type="password" class="form-control" id="pwd" required>
+                        <input type="password" class="form-control" id="pwd" name="pwd" required>
                     </div>
                     <div class="form-group">
                         <label for="pwd_con">Confirm password:</label>
-                        <input type="password" class="form-control" id="pwd_con" required>
+                        <input type="password" class="form-control" id="pwd_con" name="pwd_con" required>
                     </div>
                     <div class="form-group">
                         <label for="code">Teachercode:</label>

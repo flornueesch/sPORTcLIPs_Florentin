@@ -20,25 +20,15 @@
       $dbdir = 'Z:\Eigene Dateien\IWeb\sPORTcLIPs_Florentin';
       /* Datenbankdatei ausserhalb htdocs öffnen bzw. erzeugen */
       $db = new SQLite3("$dbdir/sq3.db");
-
-      $db->query("create table if not exists TLehrer(
-LehrId int primary key AUTOINCREMENT,
-LehrVorname String not null,
-LehrNachname String not null,
-LehrUser String not null,
-LehrPassword String not null
-);");
+      $db->exec("CREATE TABLE  if not exists TLehrer(LehrId INTEGER PRIMARY KEY AUTOINCREMENT, LehrVorname not null, LehrNachname not null, LehrUser not null, LehrPassword not null);");
 
 
-      $db->query("create table if not exists TSchueler(
-Schuid int primary key AUTOINCREMENT,
-SchuVorname String not null,
-SchuNachname String not null,
-SchuUser String not null,
-SchuPassword String not null
-);");
+      $db->exec("create table if not exists TSchueler(SchuId INTEGER PRIMARY KEY AUTOINCREMENT, SchuVorname not null, SchuNachname not null, SchuUser not null, SchuPassword not null);");
+
+
 
       $db->close();
+      echo "Erzeugt"
       ?>
 
   </head>
@@ -79,11 +69,11 @@ SchuPassword String not null
             <form method="post" action="bestaetigung.php">
             <div class="form-group">
               <label for="usr">Username:</label>
-              <input type="text" class="form-control" id="usr">
+              <input type="text" class="form-control" name="usr" required>
             </div>
             <div class="form-group">
               <label for="pwd">Password:</label>
-                <input type="password" class="form-control" id="pwd">
+                <input type="password" class="form-control" name="pwd" required>
               </div>
               <button type="submit" class="btn btn-default">Submit</button>
             </form>
