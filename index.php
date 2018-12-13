@@ -16,6 +16,31 @@
     <!-- Custom styles for this template -->
     <link href="css/scrolling-nav.css" rel="stylesheet">
 
+      <?php
+      $dbdir = 'Z:\Eigene Dateien\IWeb\sPORTcLIPs_Florentin';
+      /* Datenbankdatei ausserhalb htdocs öffnen bzw. erzeugen */
+      $db = new SQLite3("$dbdir/sq3.db");
+
+      $db->query("create table if not exists TLehrer(
+LehrId int primary key AUTOINCREMENT,
+LehrVorname String not null,
+LehrNachname String not null,
+LehrUser String not null,
+LehrPassword String not null
+);");
+
+
+      $db->query("create table if not exists TSchueler(
+Schuid int primary key AUTOINCREMENT,
+SchuVorname String not null,
+SchuNachname String not null,
+SchuUser String not null,
+SchuPassword String not null
+);");
+
+      $db->close();
+      ?>
+
   </head>
 
   <body id="page-top">

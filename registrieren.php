@@ -87,12 +87,28 @@ $db->close();
 
                 <form method="post" action="bestaetigung.php">
                     <div class="form-group">
+                        <label for="vorname">Vorname:</label>
+                        <input type="text" class="form-control" id="vorname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nachname">Nachname:</label>
+                        <input type="text" class="form-control" id="nachname" required>
+                    </div>
+                    <div class="form-group">
                         <label for="usr">Username:</label>
-                        <input type="text" class="form-control" id="usr">
+                        <input type="text" class="form-control" id="usr" required>
                     </div>
                     <div class="form-group">
                         <label for="pwd">Password:</label>
-                        <input type="password" class="form-control" id="pwd">
+                        <input type="password" class="form-control" id="pwd" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd_con">Confirm password:</label>
+                        <input type="password" class="form-control" id="pwd_con" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="code">Teachercode:</label>
+                        <input type="text" class="form-control" id="code">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
@@ -105,7 +121,6 @@ $db->close();
 
 <!-- Footer -->
 <footer>
-
     <p>Copyright &copy; Florentin Nüesch 2018</p>
 
     <!-- /.container -->
