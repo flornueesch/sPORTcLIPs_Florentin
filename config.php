@@ -9,7 +9,7 @@ $db->exec("CREATE TABLE  if not exists TLehrer(LehrUser PRIMARY KEY, LehrVorname
 $db->exec("create table if not exists TSchueler(SchuUser INTEGER PRIMARY KEY, SchuVorname not null, SchuNachname not null, SchuPassword not null);");
 
 
-$db->exec("CREATE TABLE IF NOT EXISTS TVideos (VidNummer INTEGER PRIMARY KEY AUTOINCREMENT, VidPfand, VidBeschreibung);");
+$db->exec("CREATE TABLE IF NOT EXISTS TVideos (VidNummer INTEGER PRIMARY KEY AUTOINCREMENT, VidPfand String, VidBeschreibung String);");
 
 
 // Start the session

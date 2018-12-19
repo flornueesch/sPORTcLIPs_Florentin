@@ -78,11 +78,6 @@ $db->close();
                     <br><br>
 
                     <div class="form-group">
-                        <label for="nachname">Viedoname:</label>
-                        <input type="text" class="form-control" id="viedoname" name="viedoname" required>
-                    </div>
-
-                    <div class="form-group">
                         <label for="usr">Description:</label>
                         <input type="text" class="form-control" id="des" name="des" required>
                     </div>
