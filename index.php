@@ -8,30 +8,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Scrolling Nav - Start Bootstrap Template</title>
+    <title>sPORTcLIPs</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/scrolling-nav.css" rel="stylesheet">
-
-      <?php
-      $dbdir = 'Z:\Eigene Dateien\IWeb\sPORTcLIPs_Florentin';
-      /* Datenbankdatei ausserhalb htdocs öffnen bzw. erzeugen */
-      $db = new SQLite3("$dbdir/sq3.db");
-      $db->exec("CREATE TABLE  if not exists TLehrer(LehrId INTEGER PRIMARY KEY AUTOINCREMENT, LehrVorname not null, LehrNachname not null, LehrUser not null, LehrPassword not null);");
-
-
-      $db->exec("create table if not exists TSchueler(SchuId INTEGER PRIMARY KEY AUTOINCREMENT, SchuVorname not null, SchuNachname not null, SchuUser not null, SchuPassword not null);");
-
-
-
-      $db->close();
-      echo "Erzeugt"
-      ?>
-
-  </head>
+        </head>
 
   <body id="page-top">
 
@@ -60,13 +44,53 @@
       </div>
     </header>
 
+    <p style="text-align: center; font-size: 1.5em; color: red; padding-top: 2%">
+        <?php
+
+    include 'config.php';
+
+    if(isset($_POST['submit'])){
+            ueberpruefen($db);
+        }
+
+
+
+        function ueberpruefen($db){
+            $user = $_POST['usr'];
+            $pwd = $_POST['pwd'];
+
+            $resSchu = $db->query("SELECT * FROM TSchueler where SchuUser = '". $user."' and SchuPassword = '". $pwd."'");
+            $resLehr = $db->query("SELECT * FROM TLehrer where LehrUser = ". $user." and LehrPassword = ". $pwd);
+
+            /* Abfrageergebnis ausgeben */
+            while ($dsatz = $resSchu->fetchArray(SQLITE3_ASSOC)) {
+                header('Location: ./galerie.php');
+                exit;
+
+            }
+
+            /* Abfrageergebnis ausgeben */
+            while ($dsatz = $resLehr->fetchArray(SQLITE3_ASSOC)) {
+                header('Location: ./galerie.php');
+                exit;
+            }
+
+
+            echo "Wrong Password or User";
+
+            /* Verbindung zur Datenbankdatei wieder lösen */
+            $db->close();
+        }
+        ?>
+        </p>
+
     <section id="about">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto">
 
 
-            <form method="post" action="bestaetigung.php">
+            <form method="post" action="index.php">
             <div class="form-group">
               <label for="usr">Username:</label>
               <input type="text" class="form-control" name="usr" required>
@@ -75,7 +99,7 @@
               <label for="pwd">Password:</label>
                 <input type="password" class="form-control" name="pwd" required>
               </div>
-              <button type="submit" class="btn btn-default">Submit</button>
+              <button type="submit" class="btn btn-default" name="submit">Submit</button>
             </form>
 
           </div>

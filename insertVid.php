@@ -61,8 +61,8 @@ $db->close();
 
 <header class="bg-primary text-white">
     <div class="container text-center">
-        <h1>Register</h1>
-        <p class="lead">Register to see all the great clips</p>
+        <h1>Upload video</h1>
+        <p class="lead">Upload a video cilp</p>
     </div>
 </header>
 
@@ -70,34 +70,24 @@ $db->close();
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
+                <form method="post" action="galerie.php" enctype="multipart/form-data">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="fileToUpload" name="fileToUpload">
+                        <label class="custom-file-label" for="file">Choose file</label>
+                    </div>
+                    <br><br>
 
+                    <div class="form-group">
+                        <label for="nachname">Viedoname:</label>
+                        <input type="text" class="form-control" id="viedoname" name="viedoname" required>
+                    </div>
 
-                <form method="post" action="insertUser.php">
                     <div class="form-group">
-                        <label for="vorname">Vorname:</label>
-                        <input type="text" class="form-control" id="vorname" name="vorname" required>
+                        <label for="usr">Description:</label>
+                        <input type="text" class="form-control" id="des" name="des" required>
                     </div>
-                    <div class="form-group">
-                        <label for="nachname">Nachname:</label>
-                        <input type="text" class="form-control" id="nachname" name="nachname" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="usr">Username:</label>
-                        <input type="text" class="form-control" id="usr" name="usr" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Password:</label>
-                        <input type="password" class="form-control" id="pwd" name="pwd" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd_con">Confirm password:</label>
-                        <input type="password" class="form-control" id="pwd_con" name="pwd_con" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="code">Teachercode:</label>
-                        <input type="text" class="form-control" id="code">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
+
+                    <button type="submit" class="btn btn-default" name="videoupload" value="Upload Image">Submit</button>
                 </form>
 
             </div>

@@ -11,7 +11,7 @@ header {
 }
 
 section {
-  padding: 150px 0;
+  padding: 3%;
 }
 
 footer{
@@ -20,4 +20,23 @@ footer{
   padding-bottom: 0.8%;
   text-align: center;
   color: white;
+}
+
+
+@media (min-width: 992px) {
+    body {
+        padding-top: 56px;
+    }
+}
+
+.portfolio-item {
+    margin-bottom: 30px;
+}
+
+.pagination {
+    margin-bottom: 30px;
+}
+
+.row{
+    padding-top: 10%;
 }
