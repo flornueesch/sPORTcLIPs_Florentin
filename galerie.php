@@ -19,7 +19,6 @@
   </head>
 
   <?php
-
   if(isset($_POST['videoupload'])) {
       //Quelle: https://www.w3schools.com/php/php_file_upload.asp
       $target_dir = "./videos/";
@@ -42,11 +41,6 @@
           echo "Sorry, file already exists.";
           $uploadOk = 0;
       }
-      // Check file size
-      if ($_FILES["fileToUpload"]["size"] > 40000000) {
-          echo "Sorry, your file is too large.";
-          $uploadOk = 0;
-      }
       // Allow certain file formats
       if ($imageFileType != "mp4" && $imageFileType != "mov") {
           echo "Sorry, only mp4, mov files are allowed.";
@@ -64,6 +58,9 @@
           }
       }
   }
+
+
+
   ?>
 
   <body id="page-top">
