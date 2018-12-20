@@ -1,24 +1,3 @@
-<?php
-
-include 'config.php';
-
-if(isset($_POST['usr_reg'])) {
-
-    $vorname = $_POST['vorname_reg'];
-    $nachname = $_POST['nachname_reg'];
-    $user = $_POST['usr_reg'];
-    $pwd = $_POST['pwd_reg'];
-
-
-    /* Drei Datensätze eintragen */
-    $db->query("INSERT INTO TLehrpersonen VALUES (null , '" . $vorname . "', '" . $nachname . "', '" . $user . "', '" . $pwd . "')");
-    $db->query("INSERT INTO TSchueler VALUES (null , 'Jan', 'Reifler')");
-
-}
-/* Verbindung zur Datenbankdatei wieder lösen */
-$db->close();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +8,7 @@ $db->close();
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Scrolling Nav - Start Bootstrap Template</title>
+    <title>register sPORTcLIPs</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -94,7 +73,7 @@ $db->close();
                         <input type="password" class="form-control" id="pwd_con" name="pwd_con" required>
                     </div>
                     <div class="form-group">
-                        <label for="code">Teachercode:</label>
+                        <label for="teacherCode">Teachercode:</label>
                         <input type="text" class="form-control" id="teacherCode" name="teacherCode">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>

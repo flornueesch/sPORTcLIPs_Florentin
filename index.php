@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>sPORTcLIPs</title>
+    <title>Login sPORTcLIPs</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -48,51 +48,22 @@
         <?php
 
     include 'config.php';
-        $resLehr = $db->query("SELECT * FROM TLehrer");
 
-        /* Abfrageergebnis ausgeben */
-        while ($dsatz = $resLehr->fetchArray(SQLITE3_ASSOC)) {
-            echo $dsatz["LehrUser"] . ", "
-                . $dsatz["LehrPassword"] . "<br>";
-        }
-
-        $resSchu = $db->query("SELECT * FROM TSchueler");
-
-        /* Abfrageergebnis ausgeben */
-        while ($dsatz = $resSchu->fetchArray(SQLITE3_ASSOC)) {
-            echo $dsatz["SchuUser"] . ", "
-                . $dsatz["SchuVorname"] . "<br>";
-        }
-
+        $res = $db->query("SELECT * FROM TUser");
 
         if(isset($_POST['submit'])){
-            ueberpruefen($db);
-        }
-
-
-
-        function ueberpruefen($db){
             $user = $_POST['usr'];
             $pwd = $_POST['pwd'];
 
-            $resSchu = $db->query("SELECT * FROM TSchueler where SchuUser = '$user' and SchuPassword = '$pwd'");
-            $resLehr = $db->query("SELECT * FROM TLehrer where LehrUser = '$user' and LehrPassword = '$pwd'");
+            $res = $db->query("SELECT * FROM TUser where UsrId = '$user' and UsrPassword = '$pwd'");
 
             /* Abfrageergebnis ausgeben */
-            while ($dsatz = $resSchu->fetchArray(SQLITE3_ASSOC)) {
+            while ($dsatz = $res->fetchArray(SQLITE3_ASSOC)) {
                 header('Location: ./galerie.php');
-                $_SESSION["user"] = "schueler";
+                $_SESSION["user"] = $dsatz['UsrType'];
                 exit;
 
             }
-
-            /* Abfrageergebnis ausgeben */
-            while ($dsatz = $resLehr->fetchArray(SQLITE3_ASSOC)) {
-                header('Location: ./galerie.php');
-                $_SESSION["user"] = "lehrer";
-                //exit;
-            }
-
 
             echo "Wrong Password or User";
 
