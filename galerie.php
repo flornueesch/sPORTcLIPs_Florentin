@@ -21,11 +21,14 @@
   <?php
   include 'config.php';
 
+  echo $_SESSION["user"];
+
   if(isset($_POST['videoupload'])) {
 
       //Quelle: https://www.w3schools.com/php/php_file_upload.asp
       $target_dir = "videos/";
       $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+      $filename = basename($_FILES["fileToUpload"]["name"]);
       $uploadOk = 1;
       $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
@@ -35,10 +38,10 @@
           $uploadOk = 0;
       }
       // Allow certain file formats
-      /*if ($imageFileType != "mp4" && $imageFileType != "mov") {
+      if ($imageFileType != "mp4" && $imageFileType != "mov") {
           echo "Sorry, only mp4, mov files are allowed.";
           $uploadOk = 0;
-      }*/
+      }
       // Check if $uploadOk is set to 0 by an error
       if ($uploadOk == 0) {
           echo "Sorry, your file was not uploaded.";
@@ -49,9 +52,8 @@
 
               $beschriebung = $_POST['des'];
 
-              $sqlstr = "INSERT INTO TVideos (VidNummer, VidPfand, VidBeschreibung) VALUES ";
-              $db->query($sqlstr . "('', '".$_FILES["fileToUpload"]["name"]."', '$beschriebung')");
-              $db->close();
+              $sqlstr = "INSERT INTO TVideos (VidPfand, VidBeschreibung) VALUES ";
+              $db->query($sqlstr . "('$filename', '$beschriebung')");
 
           } else {
               echo "Sorry, there was an error uploading your file.";
@@ -68,20 +70,14 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Galerie</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#services">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+              <a class="nav-link js-scroll-trigger" href="#about">Logout</a>
             </li>
           </ul>
         </div>
@@ -91,47 +87,51 @@
     <header class="bg-primary text-white">
       <div class="container text-center">
         <h1>Galerie</h1>
-        <p class="lead">Below are sport viedos</p>
+        <p class="lead">Below are viedos about sports and stuff</p>
       </div>
     </header>
 
 
     <!-- Page Content -->
     <div class="container">
-
         <div class="row">
+        <?php
+        $res = $db->query("SELECT * FROM TVideos");
+
+        $beschreibung = '';
+        /* Abfrageergebnis ausgeben */
+        while ($dsatz = $res->fetchArray(SQLITE3_ASSOC)) {
+            $file = $dsatz["VidPfand"];
+            $beschreibung = $dsatz["VidBeschreibung"];
+
+            $pfad = "videos/". $file;
+
+        ?>
+
+
             <div class="col-lg-6 portfolio-item">
                 <div class="card h-100">
                     <video height="302px" controls>
-                            <source src="videos/ArmControl.mp4" type="video/mp4">
+                            <source src="<?php $pfad ?>" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     <div class="card-body">
                         <h4 class="card-title">
-                            <a href="#">Project One</a>
+                            <a href="#"><?php echo $file?></a>
                         </h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                        <p class="card-text"><?php echo $beschreibung?></p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 portfolio-item">
-                <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Project Two</a>
-                        </h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit aliquam aperiam nulla perferendis dolor nobis numquam, rem expedita, aliquid optio, alias illum eaque. Non magni, voluptates quae, necessitatibus unde temporibus.</p>
-                    </div>
-                </div>
-            </div>
+
+            <?php }?>
 
 
 
         </div>
         <!-- /.row -->
 
-        <!-- Pagination -->
+        <!-- Pagination
         <ul class="pagination justify-content-center">
             <li class="page-item">
                 <a class="page-link" href="#" aria-label="Previous">
@@ -154,7 +154,7 @@
                     <span class="sr-only">Next</span>
                 </a>
             </li>
-        </ul>
+        </ul>-->
 
     </div>
     <!-- /.container -->

@@ -52,7 +52,7 @@ $db->close();
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="index.php">Zurück</a>
+                    <a class="nav-link js-scroll-trigger" href="galerie.php">Zurück</a>
                 </li>
             </ul>
         </div>
@@ -73,13 +73,13 @@ $db->close();
                 <form method="post" action="galerie.php" enctype="multipart/form-data">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="fileToUpload" name="fileToUpload">
-                        <label class="custom-file-label" for="file">Choose file</label>
+                        <label class="custom-file-label" for="fileToUpload">Choose file</label>
                     </div>
                     <br><br>
 
                     <div class="form-group">
-                        <label for="usr">Description:</label>
-                        <input type="text" class="form-control" id="des" name="des" required>
+                        <label for="des">Description:</label>
+                        <textarea class="form-control"  id="des" name="des" rows="4" required></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-default" name="videoupload" value="Upload Image">Submit</button>

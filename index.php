@@ -48,8 +48,24 @@
         <?php
 
     include 'config.php';
+        $resLehr = $db->query("SELECT * FROM TLehrer");
 
-    if(isset($_POST['submit'])){
+        /* Abfrageergebnis ausgeben */
+        while ($dsatz = $resLehr->fetchArray(SQLITE3_ASSOC)) {
+            echo $dsatz["LehrUser"] . ", "
+                . $dsatz["LehrPassword"] . "<br>";
+        }
+
+        $resSchu = $db->query("SELECT * FROM TSchueler");
+
+        /* Abfrageergebnis ausgeben */
+        while ($dsatz = $resSchu->fetchArray(SQLITE3_ASSOC)) {
+            echo $dsatz["SchuUser"] . ", "
+                . $dsatz["SchuVorname"] . "<br>";
+        }
+
+
+        if(isset($_POST['submit'])){
             ueberpruefen($db);
         }
 
@@ -59,12 +75,13 @@
             $user = $_POST['usr'];
             $pwd = $_POST['pwd'];
 
-            $resSchu = $db->query("SELECT * FROM TSchueler where SchuUser = '". $user."' and SchuPassword = '". $pwd."'");
-            $resLehr = $db->query("SELECT * FROM TLehrer where LehrUser = ". $user." and LehrPassword = ". $pwd);
+            $resSchu = $db->query("SELECT * FROM TSchueler where SchuUser = '$user' and SchuPassword = '$pwd'");
+            $resLehr = $db->query("SELECT * FROM TLehrer where LehrUser = '$user' and LehrPassword = '$pwd'");
 
             /* Abfrageergebnis ausgeben */
             while ($dsatz = $resSchu->fetchArray(SQLITE3_ASSOC)) {
                 header('Location: ./galerie.php');
+                $_SESSION["user"] = "schueler";
                 exit;
 
             }
@@ -72,7 +89,8 @@
             /* Abfrageergebnis ausgeben */
             while ($dsatz = $resLehr->fetchArray(SQLITE3_ASSOC)) {
                 header('Location: ./galerie.php');
-                exit;
+                $_SESSION["user"] = "lehrer";
+                //exit;
             }
 
 
@@ -99,12 +117,13 @@
               <label for="pwd">Password:</label>
                 <input type="password" class="form-control" name="pwd" required>
               </div>
-              <button type="submit" class="btn btn-default" name="submit">Submit</button>
+              <button type="submit" class="btn btn-default" name="submit">Submit</button><a href="galerie.php" onclick="<?php $_SESSION["user"] = "guest" ?>"> login as guest</a>
             </form>
-
           </div>
         </div>
       </div>
+
+
     </section>
 
 

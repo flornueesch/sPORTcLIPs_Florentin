@@ -95,7 +95,7 @@ $db->close();
                     </div>
                     <div class="form-group">
                         <label for="code">Teachercode:</label>
-                        <input type="text" class="form-control" id="code">
+                        <input type="text" class="form-control" id="teacherCode" name="teacherCode">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>

@@ -2,17 +2,26 @@
 
 include 'config.php';
 
-$code = '';
+$code = null;
 $teacherCode = 'teacherCode';
-$first = true;
 
-if(isset($_POST['code'])){
-    $code = $_POST['code'];
+$firstLehr = true;
+
+$reslehr = $db->query("SELECT * FROM TLehrer");
+/* Abfrageergebnis ausgeben */
+while ($dsatz = $reslehr->fetchArray(SQLITE3_ASSOC)) {
+    $firstLehr = false;
 }
 
+$firstSchu = true;
+$resschu = $db->query("SELECT * FROM TSchueler");
+/* Abfrageergebnis ausgeben */
+while ($dsatz = $resschu->fetchArray(SQLITE3_ASSOC)) {
+    $firstSchu = false;
+}
 
     /* Create Teacher */
-    if(isset($_POST['code']) && $code == $teacherCode) {
+    if(isset($_POST['teacherCode'])) {
 
         $vorname = $_POST['vorname'];
         $nachname = $_POST['nachname'];
@@ -24,31 +33,32 @@ if(isset($_POST['code'])){
 
         /* Abfrageergebnis ausgeben */
         while ($dsatz = $res->fetchArray(SQLITE3_ASSOC)) {
-            if($dsatz == $user || $pwd != $pwd_con){
-                header('Location: http://localhost:63342/sPORTcLIPs_Florentin/index.php');
+            if($dsatz == $usr || $pwd != $pwd_con){
+               header('Location: http://localhost:63342/sPORTcLIPs_Florentin/index.php');
                 $_SESSION["insertUser"] = "n";
             }else{
                 $sqlstr = "INSERT INTO TLehrer (LehrUser, LehrVorname, LehrNachname, LehrPassword) VALUES ";
-                $db->query($sqlstr . "('".$vorname."','".$nachname."','".$usr."','".$pwd."')");
+                $db->query($sqlstr . "('$usr','$vorname','$nachname','$pwd')");
                 $db->close();
                 header('Location: http://localhost:63342/sPORTcLIPs_Florentin/index.php');
                 $_SESSION["insertUser"] = "j";
             }
         }
 
-        if($first){
+        if($firstSchu){
             $sqlstr = "INSERT INTO TLehrer (LehrUser, LehrVorname, LehrNachname, LehrPassword) VALUES ";
-            $db->query($sqlstr . "('".$usr."','".$vorname."','".$nachname."','".$pwd."')");
+            $db->query($sqlstr . "('$usr','$vorname','$nachname','$pwd')");
             $db->close();
             header('Location: http://localhost:63342/sPORTcLIPs_Florentin/index.php');
             $_SESSION["insertUser"] = "j";
         }
+    }else{
+        echo "Fehler Lehr";
     }
 
 
-    /* Create Schueler */
-    if($code != $teacherCode) {
-
+    /* Create Schueler
+    if($code = "lol") {
 
         $vorname = $_POST['vorname'];
         $nachname = $_POST['nachname'];
@@ -58,30 +68,32 @@ if(isset($_POST['code'])){
 
         $res = $db->query("SELECT * FROM TSchueler");
 
-        /* Abfrageergebnis ausgeben */
+        /* Abfrageergebnis ausgeben
         while ($dsatz = $res->fetchArray(SQLITE3_ASSOC)) {
             $first = false;
-            if($dsatz == $user || $pwd != $pwd_con){
+            if($dsatz == $usr || $pwd != $pwd_con){
                 header('Location: http://localhost:63342/sPORTcLIPs_Florentin/index.php');
                 $_SESSION["insertUser"] = "n";
             }else{
-                $sqlstr = "INSERT INTO TSchueler (SchuVorname, SchuNachname, SchuUser, SchuPassword) VALUES ";
-                $db->query($sqlstr . "('".$vorname."','".$nachname."','".$usr."','".$pwd."')");
+                $sqlstr = "INSERT INTO TSchueler ( SchuUser, SchuVorname, SchuNachname, SchuPassword) VALUES ";
+                $db->query($sqlstr . "('$usr','$vorname','$nachname','$pwd')");
                 $db->close();
-                header('Location: http://localhost:63342/sPORTcLIPs_Florentin/index.php');
+                header('http://localhost:63342/sPORTcLIPs_Florentin/index.php');
                 $_SESSION["insertUser"] = "j";
             }
         }
 
 
         if($first){
-            $sqlstr = "INSERT INTO TSchueler (SchuVorname, SchuNachname, SchuUser, SchuPassword) VALUES ";
-            $db->query($sqlstr . "('".$vorname."','".$nachname."','".$usr."','".$pwd."')");
+            $sqlstr = "INSERT INTO TSchueler ( SchuUser, SchuVorname, SchuNachname, SchuPassword) VALUES ";
+            $db->query($sqlstr . "('$usr','$vorname','$nachname','$pwd')");
             $db->close();
             header('Location: http://localhost:63342/sPORTcLIPs_Florentin/index.php');
             $_SESSION["insertUser"] = "j";
         }
 
-    }
+    }else{
+        echo "Fehler Schuüler";
+    }*/
 
 ?>
