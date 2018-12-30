@@ -100,9 +100,14 @@
             if(isset($_POST['delete'])){
 
                 $file = $_POST['delete'];
-                echo $file;
-                echo unlink("./videos/$file");
-                $db->query("delete from TVideos where VidName = '$file'");
+                $target_dir = "videos/";
+                $file_Loc = $target_dir . $file;
+
+                if (file_exists($file_Loc)) {
+                    echo unlink("./videos/$file");
+
+                    $db->query("delete from TVideos where VidName = '$file'");
+                }
             }
 
 
