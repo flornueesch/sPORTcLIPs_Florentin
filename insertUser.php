@@ -21,16 +21,11 @@ while ($dsatz = $res->fetchArray(SQLITE3_ASSOC)) {
     }
 }
 
-echo $unique."<br>";
-echo $pwd."<br>";
-echo $pwd_con."<br>";
-
-
     /* Create User */
         if ($unique === false || $pwd !== $pwd_con) {
 
             echo"Fehler";
-            header('./registrieren.php');
+            header('Location: ./registrieren.php');
 
         } else {
 
