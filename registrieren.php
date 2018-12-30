@@ -74,7 +74,7 @@
                     </div>
                     <div class="form-group">
                         <label for="teacherCode">Teachercode:</label>
-                        <input type="text" class="form-control" id="teacherCode" name="teacherCode">
+                        <input type="password" class="form-control" id="teacherCode" name="teacherCode">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
