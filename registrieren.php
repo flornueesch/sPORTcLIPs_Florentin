@@ -79,6 +79,7 @@
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
 
+                <br><i>The Teachercode is "teacherCoder" (This is for developing purposes)</i>
             </div>
         </div>
     </div>
