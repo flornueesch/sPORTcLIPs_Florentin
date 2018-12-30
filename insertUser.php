@@ -30,7 +30,7 @@ echo $pwd_con."<br>";
         if ($unique === false || $pwd !== $pwd_con) {
 
             echo"Fehler";
-            header('http://localhost:63342/sPORTcLIPs_Florentin/index.php');
+            header('./registrieren.php');
 
         } else {
 
@@ -39,7 +39,7 @@ echo $pwd_con."<br>";
                 echo"Lehrer";
                 $sqlstr = "INSERT INTO TUser (UsrId, UsrVorname, UsrNachname, UsrPassword, UsrType) VALUES ";
                 $db->query($sqlstr . "('$usr','$vorname','$nachname','$pwd', 'Lehrer')");
-                header('Location: http://localhost:63342/sPORTcLIPs_Florentin/index.php');
+                header('Location: ./index.php');
             }else{
                 echo "Fehler Lehrer";
             }
@@ -51,7 +51,7 @@ echo $pwd_con."<br>";
                 echo"Schueler";
                 $sqlstr = "INSERT INTO TUser (UsrId, UsrVorname, UsrNachname, UsrPassword, UsrType) VALUES ";
                 $db->query($sqlstr . "('$usr','$vorname','$nachname','$pwd', 'Schüler')");
-                header('Location: http://localhost:63342/sPORTcLIPs_Florentin/index.php');
+                header('Location: ./index.php');
             }
         }
 

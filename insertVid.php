@@ -51,9 +51,16 @@
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <form method="post" action="galerie.php" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label for="vidname">Videoname:</label>
+                        <input class="form-control"  id="vidname" name="vidname" required>
+                    </div>
+                    <br>
+
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="fileToUpload" name="fileToUpload">
-                        <label class="custom-file-label" for="fileToUpload">Choose file</label>
+                        <input type="file" class="form-control" id="fileToUpload" name="fileToUpload">
+
                     </div>
                     <br><br>
 

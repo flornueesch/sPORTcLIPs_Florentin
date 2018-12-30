@@ -79,100 +79,122 @@
                     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
                         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.<br>";
 
+                        $_SESSION["VidUpload"] = 0;
                         $beschriebung = $_POST['des'];
+                        $schlagwort = $_POST['vidname'];
 
-                        $sqlstr = "INSERT INTO TVideos (VidName, VidBeschreibung) VALUES ";
-                        $db->query($sqlstr . "('$filename', '$beschriebung')");
+                        $sqlstr = "INSERT INTO TVideos (VidName, VidSchlagwort, VidBeschreibung) VALUES ";
+                        $db->query($sqlstr . "('$filename', '$schlagwort', '$beschriebung')");
 
                     } else {
                         echo "Sorry, there was an error uploading your file.<br>";
                     }
                 }
 
-                unset($_POST['videoupload']);
             }
 
-            function deleteVid($db, $id){
-                echo $id;
+            unset($_POST['videoupload']);
 
-                $db->query("delete from TVideos where VidId = $id");
+            if(isset($_POST['delete'])){
+
+                $file = $_POST['delete'];
+                echo $file;
+                echo unlink("./videos/$file");
+                $db->query("delete from TVideos where VidName = '$file'");
             }
+
 
 
 
             ?>
         </div>
+        <br><br>
+
+        <div class="col-lg-8 mx-auto">
+
+
+            <form method="post" action="galerie.php">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="search" placeholder="Search.." name="search">
+                </div>
+                <button type="submit" style="width: 49%" class="btn btn-default">Submit</button>
+                <button type="submit" style="width: 49%; float: right" name="reset" value="reset" class="btn btn-default">Reset</button>
+            </form>
+
+        </div>
 
 
         <div class="row">
         <?php
-        $res = $db->query("SELECT * FROM TVideos");
+        if(isset($_POST['search'])) {
+            $schlagwort = $_POST['search'];
+        }
+
+        if(isset($_POST['reset'])) {
+            $schlagwort = '';
+        }
+
+
+        if(isset($_POST['search'])){
+
+            $res = $db->query("SELECT * FROM TVideos where VidSchlagwort LIKE '%$schlagwort%'");
+        }else{
+            $res = $db->query("SELECT * FROM TVideos");
+        }
+
+
 
         $beschreibung = '';
         /* Abfrageergebnis ausgeben */
         while ($dsatz = $res->fetchArray(SQLITE3_ASSOC)) {
             $file = $dsatz["VidName"];
             $beschreibung = $dsatz["VidBeschreibung"];
+            $schlagwort = $dsatz["VidSchlagwort"];
             $id = $dsatz["VidNummer"];
 
             $pfad = "videos/".$file;
         ?>
 
 
+
+
+
+
             <div class="col-lg-6 portfolio-item">
                 <div class="card h-100">
-                    <video height="302px" controls>
-                            <source src="<?php echo $pfad ?>" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                    <video id="<?=$schlagwort;?>" width="100%" height="auto" controls>
+                        <source src="<?php echo $pfad; ?>" type="video/mp4">
+                        <source src="<?php echo $pfad; ?>" type="video/ogg">
+                        Your browser does not support HTML5 video.
+                    </video>
                     <div class="card-body">
                         <h4 class="card-title">
-                            <a href="#"><?php echo $file?></a>
+                            <a href="#"><?php echo $schlagwort." (".$file.")"?></a>
                         </h4>
                         <p class="card-text"><?php echo $beschreibung?></p>
 
+                        <button onclick="setPlaySpeed('<?=$schlagwort;?>')" type="button" class="btn btn-primary">Slow Motion (x0.5)</button>
+                        <button onclick="resetPlaySpeed('<?=$schlagwort;?>')" type="button" class="btn btn-secondary">Reset</button><br><br>
+
                         <?php
                         if($_SESSION["user"] == 'Lehrer'){
-                        ?>
-                        <p>
-                            <button type="submit" class="btn btn-default" name="delete" onclick="<?php deleteVid($db,$id) ?>" value="<?php echo $id ?>">Delete</button>
-                        </p>
+                            ?>
+                            <p>
+                                <form action="galerie.php" method="post">
+                                <button type="submit" style="width: 100%" class="btn btn-default" name="delete" value="<?php echo $file?>">Delete</button>
+                            </form>
+                            </p>
                         <?php } ?>
                     </div>
                 </div>
             </div>
 
-            <?php }?>
+            <?php } ?>
 
 
 
         </div>
         <!-- /.row -->
-
-        <!-- Pagination
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </li>
-        </ul>-->
 
     </div>
     <!-- /.container -->

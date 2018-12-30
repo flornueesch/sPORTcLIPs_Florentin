@@ -29,3 +29,13 @@
 })(jQuery); // End of use strict
 
 
+
+function resetPlaySpeed(myVideo) {
+    var vid = document.getElementById(myVideo);
+    vid.playbackRate = 1;
+}
+
+function setPlaySpeed(myVideo) {
+    var vid = document.getElementById(myVideo);
+    vid.playbackRate = 0.5;
+}
