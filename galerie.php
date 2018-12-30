@@ -40,7 +40,8 @@
     <header class="bg-primary text-white">
       <div class="container text-center">
         <h1>Galerie</h1>
-        <p class="lead">Below are viedos about sports and stuff</p>
+        <p class="lead">Hello <?php include 'config.php';
+        echo $_SESSION["vorname"];?>, below are viedos about sports and stuff</p>
       </div>
     </header>
 
@@ -50,7 +51,7 @@
 
         <div style="text-align: center; font-size: 1.5em; color: #007bff; padding-top: 2%">
             <?php
-            include 'config.php';
+
 
             if(isset($_POST['videoupload'])) {
 
@@ -82,9 +83,10 @@
                         $_SESSION["VidUpload"] = 0;
                         $beschriebung = $_POST['des'];
                         $schlagwort = $_POST['vidname'];
+                        $usrid = $_SESSION["id"];
 
-                        $sqlstr = "INSERT INTO TVideos (VidName, VidSchlagwort, VidBeschreibung) VALUES ";
-                        $db->query($sqlstr . "('$filename', '$schlagwort', '$beschriebung')");
+                        $sqlstr = "INSERT INTO TVideos (VidName, VidSchlagwort, VidBeschreibung, UsrId) VALUES ";
+                        $db->query($sqlstr . "('$filename', '$schlagwort', '$beschriebung', '$usrid')");
 
                     } else {
                         echo "Sorry, there was an error uploading your file.<br>";
@@ -151,6 +153,7 @@
             $beschreibung = $dsatz["VidBeschreibung"];
             $schlagwort = $dsatz["VidSchlagwort"];
             $id = $dsatz["VidNummer"];
+            $upUsrId = $dsatz["UsrId"];
 
             $pfad = "videos/".$file;
         ?>
@@ -171,7 +174,8 @@
                         <h4 class="card-title">
                             <a href="#"><?php echo $schlagwort." (".$file.")"?></a>
                         </h4>
-                        <p class="card-text"><?php echo $beschreibung?></p>
+                        <p class="card-text"><?php echo $beschreibung?>
+                        <p>This Viedo was uploaded by the user: <?php echo $upUsrId; ?></p></p>
 
                         <button onclick="setPlaySpeed('<?=$schlagwort;?>')" type="button" class="btn btn-primary">Slow Motion (x0.5)</button>
                         <button onclick="resetPlaySpeed('<?=$schlagwort;?>')" type="button" class="btn btn-secondary">Reset</button><br><br>
@@ -204,8 +208,9 @@
             <div class="row">
                 <div style="text-align: center; font-weight: lighter" class="col-lg-8 mx-auto">
                     <h1>Upload video</h1><br>
+                    <p style="font-size: 1.2em">Here, you can upload a sportclip.</p><br>
                     <form method="post" action="insertVid.php">
-                        <button type="submit" class="btn btn-default" style="width: 100%" name="submit">Upload Video</button>
+                        <button type="submit" class="btn btn-default" style="width: 100%" name="submit">Upload Video</button><br><br><br>
                     </form>
 
                 </div>

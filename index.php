@@ -61,6 +61,9 @@
             while ($dsatz = $res->fetchArray(SQLITE3_ASSOC)) {
                 header('Location: ./galerie.php');
                 $_SESSION["user"] = $dsatz['UsrType'];
+                $_SESSION["id"] = $dsatz['UsrId'];
+                $_SESSION["vorname"] = $dsatz['UsrVorname'];
+                $_SESSION["UsrNachname"] = $dsatz['UsrType'];
                 exit;
 
             }
